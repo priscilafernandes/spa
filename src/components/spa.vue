@@ -1,6 +1,6 @@
 <template>
   <main class="container-fluid">
-    <h1>Busca</h1>
+    <h1 class="hello">Shopping</h1>
 
     <div class="row">
       <form class="col">
@@ -61,8 +61,7 @@
         if(this.search) {
           const vm = this;
 
-          const url = `https://api.mercadolibre.com/sites/MLB/search?category=MLB3281`;
-          // const url = `https://api.mercadolibre.com/sites/MLB/categories`;
+          const url = `https://api.mercadolibre.com/sites/MLB/search?q={{search}}&category=MLB1196`;
   
           axios.get(url).then((response) => {
             vm.results = response.data.results;
