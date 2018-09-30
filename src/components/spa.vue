@@ -1,12 +1,12 @@
 <template>
   <main class="container-fluid">
-    <header class="navbar navbar-expand-lg bg-dark">
-      <h1 class="text-light">Bookstore</h1>
+    <header class="navbar navbar-expand-lg bg-dark d-flex justify-content-around">
+      <h1 class="text-light mr-3">Bookstore</h1>
       <nav class="col-sm">
         <div class="row mt-3">
           <form class="col-sm">
             <div class="form-group">
-              <input v-model="search" type="text" class="form-control" placeholder="Digite aqui...">
+              <input v-model="search" type="text" class="form-control" placeholder="Procure seu livro...">
             </div>
           </form>        
           <div class="col-sm-3">
@@ -18,7 +18,7 @@
       </nav>
     </header>
 
-    <section class="table-responsive" v-if="!selectedBook.id">
+    <section class="table-responsive" v-if="!selectedBook.id"> <!-- v-if="!selectedBook.id" -->
       <div class="navbar navbar-expand-lg">
         <p>Você buscou por "<b>{{ search }}</b>"</p>
       </div>
@@ -38,8 +38,21 @@
             <th scope="row"><img :src="book.thumbnail"></th>
             <td>{{ book.title }}</td>
             <td>R$ {{ book.price }}</td>
-            <td><a @click.prevent.stop="getDataItem(book.id)" :href="book.id" class="badge badge-info">Mais Detalhes {{ book.id }}</a></td>
-            <td><a :href="book.permalink" target="_blank">Comprar</a></td>
+
+            <!-- Vue Router -->
+            <!-- <router-link :to="{ 
+              name: spaDetail, 
+              params: { 
+                bookDetail: search, 
+                info: book.id 
+              } 
+            }">
+              {{ book.id }}
+            </router-link> -->
+
+            <td><a @click.prevent.stop="getDataItem(book.id)" :href="book.id" class="badge badge-dark">Mais Detalhes</a></td>
+            
+            <td><a :href="book.permalink" target="_blank" class="text-success"><i class="fas fa-shopping-cart"></i></a></td>
           </tr>
           <!-- se quantidade for negativa -->
           <tr v-if="!!!books.length">
@@ -50,23 +63,25 @@
     </section>
 
     <!-- detalhe do produto -->
-    <section class="results-field" v-if="selectedBook.id">
-      <div>
-        <div><img :src="selectedBook.pictures.secure_url"></div>
-        <h2>{{ selectedBook.title }}</h2>        
-        <p>R$ {{ selectedBook.price }}</p>
-        <p><a :href="selectedBook.permalink" target="_blank">Comprar</a></p>
-        <button @click.prevent.stop="backBooks()"></button>
+    <section v-if="selectedBook.id">
+      <div class="justify-content-around mt-3">
+        <img :src="selectedBook.thumbnail" class="figure-img img-fluid">
+        <h3>{{ selectedBook.title }}</h3>
+        <h5>R$ {{ selectedBook.price }}</h5>
+        <div class="row">
+          <a @click.prevent.stop="backBooks()" class="btn btn-dark text-light col col-lg-2 mr-3">Voltar</a>
+          <a :href="selectedBook.permalink" target="_blank" class="btn btn-success col col-lg-2">Comprar</a>
+        </div>
       </div>
     </section>
+
   </main>
 </template>
 
 <script>
   /* eslint-disable */
-
   export default {
-    name: 'SPA',
+    name: 'spa',
     
     // variáveis
     data() {
