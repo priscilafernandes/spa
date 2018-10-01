@@ -18,7 +18,7 @@
       </nav>
     </header>
 
-    <section class="table-responsive" v-if="!selectedBook.id"> <!-- v-if="!selectedBook.id" -->
+    <section class="table-responsive" v-if="!selectedBook.id">
       <div class="navbar navbar-expand-lg">
         <p>Você buscou por "<b>{{ search }}</b>"</p>
       </div>
@@ -33,28 +33,22 @@
           </tr>
         </thead>
         <tbody>
-          <!-- se quantidade for positiva -->
+          <!-- se a quantidade for positiva -->
           <tr v-if="!!books.length" v-for="book in books" :key="book.thumbnail">
             <th scope="row"><img :src="book.thumbnail"></th>
             <td>{{ book.title }}</td>
             <td>R$ {{ book.price }}</td>
-
             <!-- Vue Router -->
             <!-- <router-link :to="{ 
               name: spaDetail, 
               params: { 
-                bookDetail: search, 
-                info: book.id 
+                bookDetail: book.id, 
               } 
-            }">
-              {{ book.id }}
-            </router-link> -->
-
+            }">{{ book.id }}</router-link> -->
             <td><a @click.prevent.stop="getDataItem(book.id)" :href="book.id" class="badge badge-dark">Mais Detalhes</a></td>
-            
             <td><a :href="book.permalink" target="_blank" class="text-success"><i class="fas fa-shopping-cart"></i></a></td>
           </tr>
-          <!-- se quantidade for negativa -->
+          <!-- se a quantidade for negativa -->
           <tr v-if="!!!books.length">
             <td colspan="5">Sem resultados...</td>
           </tr>
@@ -74,7 +68,6 @@
         </div>
       </div>
     </section>
-
   </main>
 </template>
 
@@ -119,7 +112,6 @@
       backBooks() {
         this.selectedBook = {};
       }
-
     }
   }
 </script>

@@ -13,7 +13,7 @@ export default new Router({
       component: spa
     },
     {
-      path: '/:bookDetail/:info',
+      path: '/:bookDetail',
       name: 'spaDetail',
       component: spaDetail
     }
